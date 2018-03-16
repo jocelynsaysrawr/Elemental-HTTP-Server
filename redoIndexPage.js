@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+let createIndexHTML = obj => {
+  return `<!DOCTYPE html>
       <html lang="en">
       
       <head>
@@ -10,8 +11,8 @@
       <body>
           <h1>The Elements</h1>
           <h2>These are all the known elements.</h2>
-          <h3>These are 3</h3>
-            <ol><li><a href="/helium.html">Helium</a></li><li><a href="/hydrogen.html">Hydrogen</a></li><li><a href="/element.html">Element</a></li></ol>
+          <h3>These are ${Object.keys(obj).length}</h3>
+            ${elementsList(obj)}
           <br>
           <br>
           <form action="index.html" method="post">
@@ -31,4 +32,17 @@
           </form>
       </body>
       
-      </html>
+      </html>`;
+};
+
+let elementsList = obj => {
+  let keys = Object.keys(obj);
+  let list = keys.reduce((accum, curr) => {
+    let elem = curr.charAt(1).toUpperCase() + curr.split(".html")[0].slice(2);
+    accum += `<li><a href="${curr}">${elem}</a></li>`;
+    return accum;
+  }, "<ol>");
+  return list + `</ol>`;
+};
+
+module.exports = createIndexHTML;
